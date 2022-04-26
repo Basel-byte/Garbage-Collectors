@@ -45,15 +45,15 @@ public class Runner {
         Map<Node, List<Node>> adjacencyList = graph.getAdjacencyList();
 
         // Run Mark And Sweep Garbage Collector
-//        MarkAndSweepCollector markAndSweepCollector = new MarkAndSweepCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
-//        markAndSweepCollector.implementMarkAndSweep();
-//        LinkedHashMap<Integer, Interval> newHeapMap = markAndSweepCollector.getSortedMap();
-//        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
+        MarkAndSweepCollector markAndSweepCollector = new MarkAndSweepCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
+        markAndSweepCollector.implementMarkAndSweep();
+        LinkedHashMap<Integer, Interval> newHeapMap = markAndSweepCollector.getSortedMap();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
 
         // Run Mark And Compact Garbage Collector
         MarkAndCompactCollector markAndCompactCollector = new MarkAndCompactCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
         markAndCompactCollector.implementMarkAndCompact();
-        LinkedHashMap<Integer, Interval> newHeapMap = markAndCompactCollector.getSortedMap();
+        newHeapMap = markAndCompactCollector.getSortedMap();
         fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
 
         // Run G1 Garbage Collector
