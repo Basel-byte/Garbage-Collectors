@@ -1,3 +1,4 @@
+import garbage_collectors.CopyCollector;
 import garbage_collectors.MarkAndCompactCollector;
 import garbage_collectors.MarkAndSweepCollector;
 import garbage_collectors.MarkCollector;
@@ -60,7 +61,9 @@ public class Runner {
 
 
         // Run Copy Garbage Collector
-
+        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
+        newHeapMap = copyCollector.CopyGCOnTrack();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
     }
 
     public static void main(String[] args) throws IOException {

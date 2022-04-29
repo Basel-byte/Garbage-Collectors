@@ -1,6 +1,4 @@
-import garbage_collectors.MarkAndCompactCollector;
-import garbage_collectors.MarkAndSweepCollector;
-import garbage_collectors.MarkCollector;
+import garbage_collectors.*;
 import model.*;
 
 import java.io.IOException;
@@ -9,14 +7,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Test {
+    private StringBuilder newHeapFilePath;
+    private int setNum = 0;
+    private void updatePath(int num){
+        this.newHeapFilePath = new StringBuilder();
+        this.newHeapFilePath.append("Input\\set" + this.setNum + "\\new_heap");
+        switch (num){
+            case 1: this.newHeapFilePath.append("_MarkAndSweep");
+                    break;
+            case 2: this.newHeapFilePath.append("_MarkAndCompact");
+                    break;
+            case 3: this.newHeapFilePath.append("_G1");
+                    break;
+            case 4: this.newHeapFilePath.append("_Copy");
+                    break;
+        }
+        this.newHeapFilePath.append(".csv");
+    }
 
 
-    private void run(int num) throws IOException {
-
-        String heapFilePath = "Input\\set1\\heap.csv";
-        String rootsFilePath = "Input\\set1\\roots.txt";
-        String pointersFilePath = "Input\\set1\\pointers.csv";
-        String newHeapFilePath = "Input\\set1\\new_heap" + num + ".csv";
+    private void run(int setNum) throws IOException {
+        this.setNum = setNum;
+        String heapFilePath =     "Input\\set" + setNum + "\\heap.csv";
+        String rootsFilePath =    "Input\\set" + setNum + "\\roots.txt";
+        String pointersFilePath = "Input\\set" + setNum + "\\pointers.csv";
+        int num = 1;
 
         // Creating an instance of class FieUtil and start reading data from input files
         FileUtil fileUtil = new FileUtil();
@@ -39,26 +54,35 @@ public class Test {
         Map<Node, List<Node>> adjacencyList = graph.getAdjacencyList();
 
         // Run Mark And Sweep Garbage Collector
+        this.updatePath(num++);
         MarkAndSweepCollector markAndSweepCollector = new MarkAndSweepCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
         markAndSweepCollector.implementMarkAndSweep();
         LinkedHashMap<Integer, Interval> newHeapMap = markAndSweepCollector.getSortedMap();
-        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
         // Run Mark And Compact Garbage Collector
+        this.updatePath(num++);
         MarkAndCompactCollector markAndCompactCollector = new MarkAndCompactCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
         markAndCompactCollector.implementMarkAndCompact();
         newHeapMap = markAndCompactCollector.getSortedMap();
-        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
         // Run G1 Garbage Collector
+        this.updatePath(num++);
+
 
 
         // Run Copy Garbage Collector
+        this.updatePath(num);
+        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
+        newHeapMap = copyCollector.CopyGCOnTrack();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
     }
 
     public static void main(String[] args) throws IOException {
         Test runner = new Test();
-        runner.run(2);
+        //pass number of test to be executed
+        runner.run(3);
     }
 }

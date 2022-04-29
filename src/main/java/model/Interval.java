@@ -24,4 +24,8 @@ public class Interval {
     public void setEnd(int end) {
         this.end = end;
     }
+
+    public int getSize() {
+        return this.end-this.start;
+    }
 }
