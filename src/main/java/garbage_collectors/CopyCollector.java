@@ -11,8 +11,8 @@ public class CopyCollector {
     private final List<Integer> objectsInStack;
     private final int heapSize;
     private LinkedHashMap<Integer, Interval> toHeap;
-    private Set<Node> setOfCopiedObjects;
-    private Map<Node, List<Node>> adjacencyList;
+    private final Set<Node> setOfCopiedObjects;
+    private final Map<Node, List<Node>> adjacencyList;
 
     public CopyCollector(Map<Integer, Interval> fromHeap, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList){
         this.fromHeap = fromHeap;
@@ -34,7 +34,7 @@ public class CopyCollector {
             if (setOfCopiedObjects.contains(currentNode)) continue;
             int currentIntervalSize = fromHeap.get(currentObjectID).getSize();
             int endOfInterval = startOFInterval + currentIntervalSize;
-            toHeap.put(currentObjectID,new Interval(startOFInterval,endOfInterval));
+            toHeap.put(currentObjectID, new Interval(startOFInterval,endOfInterval));
             setOfCopiedObjects.add(currentNode);
             startOFInterval = copyChildren(currentNode,endOfInterval+1);
         }

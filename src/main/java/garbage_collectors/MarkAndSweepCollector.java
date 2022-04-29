@@ -7,8 +7,8 @@ import java.util.*;
 
 public class MarkAndSweepCollector extends MarkCollector {
 
-    public MarkAndSweepCollector(Map<Integer, Interval> objectsMemoryRepresentation, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
-        super(objectsMemoryRepresentation, objectsInStack, adjacencyList);
+    public MarkAndSweepCollector(Map<Integer, Interval> objectsMemoryLocationMap, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
+        super(objectsMemoryLocationMap, objectsInStack, adjacencyList);
     }
 
     public void implementMarkAndSweep() {

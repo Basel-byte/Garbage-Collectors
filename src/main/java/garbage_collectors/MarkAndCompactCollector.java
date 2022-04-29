@@ -7,8 +7,8 @@ import java.util.*;
 
 public class MarkAndCompactCollector extends MarkCollector {
 
-    public MarkAndCompactCollector(Map<Integer, Interval> objectsMemoryRepresentation, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
-        super(objectsMemoryRepresentation, objectsInStack, adjacencyList);
+    public MarkAndCompactCollector(Map<Integer, Interval> objectsMemoryLocationMap, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
+        super(objectsMemoryLocationMap, objectsInStack, adjacencyList);
     }
 
     private List<Map.Entry<Integer, Interval>> compactHeap(List<Map.Entry<Integer, Interval>> entryList) {

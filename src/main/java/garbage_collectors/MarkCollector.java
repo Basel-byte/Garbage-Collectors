@@ -12,8 +12,8 @@ public abstract class MarkCollector {
     private final Map<Node, List<Node>> adjacencyList;
     private final Set<Node> setOfUsedObjects;
 
-    public MarkCollector(Map<Integer, Interval> objectsMemoryRepresentation, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
-        this.objectsMemoryLocationMap = objectsMemoryRepresentation;
+    public MarkCollector(Map<Integer, Interval> objectsMemoryLocationMap, List<Integer> objectsInStack, Map<Node, List<Node>> adjacencyList) {
+        this.objectsMemoryLocationMap = objectsMemoryLocationMap;
         this.objectsInStack = objectsInStack;
         this.adjacencyList = adjacencyList;
         setOfUsedObjects = new HashSet<>();
