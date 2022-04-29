@@ -9,7 +9,6 @@ public class Node {
         this.id = id;
     }
 
-
     public int getId() {
         return id;
     }

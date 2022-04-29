@@ -15,12 +15,14 @@ public class Runner {
     private final String rootsFilePath;
     private final String pointersFilePath;
     private final String newHeapFilePath;
+    private final String heapSize;
 
     public Runner(String[] args) {
         this.heapFilePath = args[0];
         this.rootsFilePath = args[1];
         this.pointersFilePath = args[2];
         this.newHeapFilePath = args[3];
+        this.heapSize = args[4];
     }
 
     private void run() throws IOException {
