@@ -1,32 +1,27 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Block extends Interval {
 
-    Map<Integer, Interval> objectsIdAddressMap;
+    int index;
+    int offsetFromBlockStart;
+    boolean free;
+
     List<Node> usedObjects;
     List<Node> garbageObjects;
-    int index;
-    boolean free;
-    int firstAvailableIndex;
-
-    public int getFirstAvailableIndex() {
-        return firstAvailableIndex;
-    }
-
-    public void setFirstAvailableIndex(int firstAvailableIndex) {
-        this.firstAvailableIndex = firstAvailableIndex;
-    }
+    Map<Integer, Interval> objectsIdAddressMap;
 
     public Block(int index, int start, int end) {
         super(start, end);
         this.index = index;
+        objectsIdAddressMap = new HashMap<>();
         usedObjects = new ArrayList<>();
         garbageObjects = new ArrayList<>();
-        firstAvailableIndex = 0; // relative
+        offsetFromBlockStart = 0;
         free = true;
     }
 
@@ -34,16 +29,14 @@ public class Block extends Interval {
         return index;
     }
 
+    public boolean isFree() { return free; }
+
+    public void setFree() {
+        this.free = true;
+    }
+
     public List<Node> getUsedObjects() {
         return usedObjects;
-    }
-
-    public List<Node> getGarbageObjects() {
-        return garbageObjects;
-    }
-
-    public boolean isFree() {
-        return free;
     }
 
     public Map<Integer, Interval> getObjectsIdAddressMap() {
@@ -51,14 +44,10 @@ public class Block extends Interval {
     }
 
     public void sweep() {
-        for(Node obj: garbageObjects)
+        for (Node obj : garbageObjects)
             objectsIdAddressMap.remove(obj.getId());
 
         garbageObjects.clear();
-   }
-
-    public void setFree() {
-        this.free = true;
     }
 
     public void addObjectToGarbage(Node o, Interval interval) {
@@ -74,14 +63,21 @@ public class Block extends Interval {
 
     public void moveObjectToUsed(Node o) {
         usedObjects.add(o);
-        free = false;
+    }
+
+    public void moveObjectToGarbage(Node o) {
+        garbageObjects.add(o);
     }
 
     public void removeObjectFromGarbage(Node object) {
         garbageObjects.remove(object);
     }
 
-    public void removeObjectFromUsed(Node object) {
-        usedObjects.remove(object);
+    public int getOffsetFromBlockStart() {
+        return offsetFromBlockStart;
+    }
+
+    public void setOffsetFromBlockStart(int offsetFromBlockStart) {
+        this.offsetFromBlockStart = offsetFromBlockStart;
     }
 }

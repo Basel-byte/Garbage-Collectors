@@ -1,7 +1,4 @@
-import garbage_collectors.CopyCollector;
-import garbage_collectors.MarkAndCompactCollector;
-import garbage_collectors.MarkAndSweepCollector;
-import garbage_collectors.MarkCollector;
+import garbage_collectors.*;
 import model.*;
 
 import java.io.IOException;
@@ -60,12 +57,15 @@ public class Runner {
 //        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
 
         // Run G1 Garbage Collector
-
+        G1Collector g1Collector = new G1Collector(objectsMemoryLocationsMap, objectsList, adjacencyList, Integer.parseInt(heapSize));
+        g1Collector.implementG1Collector();
+        LinkedHashMap<Integer, Interval> newHeapMap = g1Collector.getSortedMap();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
 
         // Run Copy Garbage Collector
-        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
-        LinkedHashMap<Integer, Interval> newHeapMap = copyCollector.CopyGCOnTrack();
-        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
+//        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
+//        LinkedHashMap<Integer, Interval> newHeapMap = copyCollector.CopyGCOnTrack();
+//        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
     }
 
     public static void main(String[] args) throws IOException {
