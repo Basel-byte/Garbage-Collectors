@@ -53,7 +53,7 @@ public class Runner {
         // Run Mark And Compact Garbage Collector
 //        MarkAndCompactCollector markAndCompactCollector = new MarkAndCompactCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
 //        markAndCompactCollector.implementMarkAndCompact();
-//        newHeapMap = markAndCompactCollector.getSortedMap();
+//        LinkedHashMap<Integer, Interval> newHeapMap = markAndCompactCollector.getSortedMap();
 //        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath);
 
         // Run G1 Garbage Collector

@@ -15,7 +15,6 @@ public class Graph {
 
     private void addEdge(Node u, Node v) {
         adjacencyList.get(u).add(v);
-        adjacencyList.get(v).add(u);
     }
 
     public void buildGraph(List<List<String>> records) {
