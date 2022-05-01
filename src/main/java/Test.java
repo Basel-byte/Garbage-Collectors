@@ -11,7 +11,7 @@ public class Test {
     private int setNum = 0;
     private void updatePath(int num){
         this.newHeapFilePath = new StringBuilder();
-        this.newHeapFilePath.append("Input/set" + this.setNum + "/new_heap");
+        this.newHeapFilePath.append("Input\\set" + this.setNum + "\\new_heap");
         switch (num){
             case 1: this.newHeapFilePath.append("_MarkAndSweep");
                     break;
@@ -28,12 +28,12 @@ public class Test {
 
     private void run(int setNum) throws IOException {
         this.setNum = setNum;
-        String heapFilePath =     "Input/set" + setNum + "/heap.csv";
-        String rootsFilePath =    "Input/set" + setNum + "/roots.txt";
-        String pointersFilePath = "Input/set" + setNum + "/pointers.csv";
+        String heapFilePath =     "Input\\set" + setNum + "\\heap.csv";
+        String rootsFilePath =    "Input\\set" + setNum + "\\roots.txt";
+        String pointersFilePath = "Input\\set" + setNum + "\\pointers.csv";
         int num = 1;
 
-        int heapSize = 1600;
+        int heapSize = 32000;
         // Creating an instance of class FieUtil and start reading data from input files
         FileUtil fileUtil = new FileUtil();
         List<List<String>> heapRecords = fileUtil.readFromCSVFile(heapFilePath);
@@ -87,6 +87,6 @@ public class Test {
     public static void main(String[] args) throws IOException {
         Test runner = new Test();
         //pass number of test to be executed
-        runner.run(2);
+        runner.run(5);
     }
 }
