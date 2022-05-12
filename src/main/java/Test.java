@@ -56,31 +56,31 @@ public class Test {
 
         // Run Mark And Sweep Garbage Collector
         this.updatePath(num++);
-//        MarkAndSweepCollector markAndSweepCollector = new MarkAndSweepCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
-//        markAndSweepCollector.implementMarkAndSweep();
-//        LinkedHashMap<Integer, Interval> newHeapMap = markAndSweepCollector.getSortedMap();
-//        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
+        MarkAndSweepCollector markAndSweepCollector = new MarkAndSweepCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
+        markAndSweepCollector.implementMarkAndSweep();
+        LinkedHashMap<Integer, Interval> newHeapMap = markAndSweepCollector.getSortedMap();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
         // Run Mark And Compact Garbage Collector
         this.updatePath(num++);
-//        MarkAndCompactCollector markAndCompactCollector = new MarkAndCompactCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
-//        markAndCompactCollector.implementMarkAndCompact();
-//        newHeapMap = markAndCompactCollector.getSortedMap();
-//        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
+        MarkAndCompactCollector markAndCompactCollector = new MarkAndCompactCollector(objectsMemoryLocationsMap, objectsList, adjacencyList);
+        markAndCompactCollector.implementMarkAndCompact();
+        newHeapMap = markAndCompactCollector.getSortedMap();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
         // Run G1 Garbage Collector
         this.updatePath(num++);
         G1Collector g1Collector = new G1Collector(objectsMemoryLocationsMap, objectsList, adjacencyList, heapSize);
         g1Collector.implementG1Collector();
-        LinkedHashMap<Integer, Interval> newHeapMap = g1Collector.getSortedMap();
+        newHeapMap = g1Collector.getSortedMap();
         fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
 
         // Run Copy Garbage Collector
         this.updatePath(num);
-//        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
-//        newHeapMap = copyCollector.CopyGCOnTrack();
-//        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
+        CopyCollector copyCollector = new CopyCollector(objectsMemoryLocationsMap,objectsList,adjacencyList);
+        newHeapMap = copyCollector.CopyGCOnTrack();
+        fileUtil.writeInCSVFile(newHeapMap, newHeapFilePath.toString());
 
     }
 
